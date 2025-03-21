@@ -12,7 +12,7 @@ int main() {
     int n2; 
     string s1;
     string s2;
-    string s_helper;
+    // string s_helper;
 
     cout << "¬ведите n1: ";
     cin >> n1;
@@ -33,9 +33,9 @@ int main() {
     }
 
     cout << "¬ведите s1: ";
-    cin >> s1;
-    getline(cin, s_helper);
-    s1 += s_helper;
+    // cin >> s1;
+    getline(cin, s1);
+    // s1 += s_helper;
 
     if (cin.fail() || n1 > s1.length()) {
         wcout << "ќшибка ввода" << endl;
@@ -43,9 +43,9 @@ int main() {
     }
 
     cout << "¬ведите s2: ";
-    cin >> s2;
-    getline(cin, s_helper);
-    s2 += s_helper;
+    // cin >> s2;
+    getline(cin, s2);
+    // s2 += s_helper;
 
     if (cin.fail() || n2 > s2.length()) {
         cout << "ќшибка ввода" << endl;
