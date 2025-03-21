@@ -16,6 +16,7 @@ int main() {
 
     cout << "¬ведите n1: ";
     cin >> n1;
+    cin.ignore(32767, '\n'); 
 
     if (cin.fail() || n1 <= 0 ) {
         cout << "ќшибка ввода" << endl;
@@ -24,6 +25,7 @@ int main() {
 
     cout << "¬ведите n2: ";
     cin >> n2;
+    cin.ignore(32767, '\n'); 
 
     if (cin.fail() || n2 <= 0) {
         cout << "ќшибка ввода" << endl;
