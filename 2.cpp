@@ -4,7 +4,9 @@
 
 using namespace std;
 
-bool in_array(string str, char c) {
+bool in_string(string str, char c)
+{
+    c = tolower(c);
     for (int i = 0; i < str.length(); i++) {
         if (str[i] == c) {
             return true;
@@ -19,82 +21,66 @@ int main() {
     SetConsoleOutputCP(1251);
 
     string s;
+    string consonants = "bcdfghjklmnpqrstvwxyzáâãäæçêëìíïðñòôõö÷øù";
+    string other_letters = "aeiouyàå¸èîóûýþÿüú";
 
-    int array_size;
+    cout << "Ââåäèòå ñòðîêó (ðàçäåëèòåëü ñëîâ - ïðîáåë, îêîí÷àíèå - exit): ";
 
-    cout << "Ââåäèòå êîëè÷åñòâî ñëîâ: ";
-    cin >> array_size;
-    cin.ignore(32767, '\n'); 
+    
 
-    if (cin.fail() || array_size <= 0) {
+    if (cin.fail()) {
         cout << "Îøèáêà ââîäà" << endl;
         return 1;
     }
 
-    cout << "Ââåäèòå ñòðîêó (ðàçäåëèòåëü ñëîâ - ïðîáåë): ";
-    getline(cin, s);
-    s += '\n';
-    int len_s = s.length();
-
-    int count_space = 0;
-
-    for (int i = 0; i < len_s; i++)
-    {
-        if (s[i] == ' ')
-        {
-            count_space ++;
-        }
-    }
-
-    if (cin.fail() || ++count_space != array_size) {
-        cout << "Îøèáêà ââîäà" << endl;
-        return 1;
-    }
-
-    float A[array_size];
-
-    string consonants = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZáâãäæçêëìíïðñòôõö÷øùÁÂÃÄÆÇÊËÌÍÏÐÑÒÔÕÖ×ØÙ";
+    
     
     int count_consonants = 0;
     float count_letters = 0;
-    int index = 0;
-
-    for (int i = 0; i <= len_s; i++){
-        if (s[i] == ' ' || s[i] == '\n') 
-        {   
-            // cout << count_letters << endl;
-            // cout << count_consonants << endl;
-            if (count_consonants == 0)
-            {
-                A[index] = 0;
-            }
-            else
-            {
-                A[index] = (count_consonants / count_letters) * 100;
-            }
-            count_consonants = 0;
-            count_letters = 0;
-            index ++;
-        }
-        else 
-        {
-            if (in_array(consonants, s[i]))
-            {
-                count_consonants ++;
-                count_letters ++;
-            }
-            else
-            {
-                count_letters ++;
-            }
-        }
-    }
+    string max_word;
+    int proportion;
+    int max_proportion = 0; 
     
-    cout << "Ñëîâà:" << endl;
-    for (int i = 0; i < array_size; i++){
-        int share = A[i];
-        cout << i + 1 <<": " << share << '%' << endl;
+    int index = 1;
+
+    while (cin >> s){
+        if (s == "exit") {
+            break;
+        }
+
+        for (int i = 0; i <= s.length(); i++){   
+            if (in_string(other_letters, s[i])) {
+                count_letters++;
+            }
+            else { 
+                if (in_string(consonants, s[i])) {
+                count_consonants++;
+                count_letters++;
+                }
+            }
+        }
+        
+        if (count_consonants == 0){
+            proportion = 0;
+        }   
+        else {
+            proportion = (count_consonants / count_letters) * 100;
+        }
+
+        if (proportion > max_proportion) {
+            max_proportion = proportion;
+            max_word = s;
+            cout << "max_word: " << max_word << endl;
+        }
+
+        cout << index << ". " << s << " - " << proportion << "%" << endl;
+
+        count_consonants = 0;
+        count_letters = 0;
+        index++;
     }
+
+    cout << "Ñëîâî ñ ìàêñèìàëüíîé äîëåé ñîãëàñíûõ: " << max_word << " - " << max_proportion << "%" << endl;
 
     return 0;
 }
