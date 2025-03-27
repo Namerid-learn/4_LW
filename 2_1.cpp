@@ -78,7 +78,12 @@ int main() {
         index++;
     }
 
+    if (max_proportion == 0) {
+        cout << "¬ строке нет слов, состо€щих из согласных" << endl;
+    }
+    else {
     cout << "—лово с максимальной долей согласных: " << max_word << " - " << max_proportion << "%" << endl;
+    }
 
     return 0;
 }

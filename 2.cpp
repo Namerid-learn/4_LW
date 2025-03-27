@@ -17,6 +17,15 @@ bool in_string(string str, char c)
     return false;
 }
 
+bool check_all_is_space(string s){
+    for (int i = 0; i < s.length(); i++){
+        if (s[i] != ' '){
+            return false;
+        }
+    }
+    return true;
+}
+
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
@@ -29,7 +38,7 @@ int main() {
     cout << "Введите строку (разделитель слов - пробел): ";
 
     getline(cin, input_s);
-    if (cin.fail()) {
+    if (cin.fail() || check_all_is_space(input_s)) {
         cout << "Ошибка ввода" << endl;
         return 1;
     }
@@ -77,7 +86,12 @@ int main() {
         index++;
     }
 
+    if (max_proportion == 0) {
+        cout << "В строке нет слов, состоящих из согласных" << endl;
+    }
+    else {
     cout << "Слово с максимальной долей согласных: " << max_word << " - " << max_proportion << "%" << endl;
+    }
 
     return 0;
 }
