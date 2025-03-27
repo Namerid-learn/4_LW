@@ -38,7 +38,7 @@ int main() {
     // s1 += s_helper;
 
     if (cin.fail() || n1 > s1.length()) {
-        wcout << "Ошибка ввода" << endl;
+        cout << "Ошибка ввода" << endl;
         return 1;
     }
 

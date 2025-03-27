@@ -18,59 +18,83 @@ int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    string s1;
-    string s2;
+    string s;
 
-    float count_consonants_1 = 0;
-    float count_consonants_2 = 0;
-    double share1;
-    double share2;
+    int array_size;
 
-    cout << "Введите первое слово: ";
-    cin >> s1;
-    int len_s1 = s1.length();
+    cout << "Введите количество слов: ";
+    cin >> array_size;
+    cin.ignore(32767, '\n'); 
 
-    if (cin.fail()) {
-        wcout << "Ошибка ввода" << endl;
-        return 1;
-    }
-
-    cout << "Введите второе слово: ";
-    cin >> s2;
-    int len_s2 = s2.length();
-
-    if (cin.fail()) {
+    if (cin.fail() || array_size <= 0) {
         cout << "Ошибка ввода" << endl;
         return 1;
     }
 
+    cout << "Введите строку (разделитель слов - пробел): ";
+    getline(cin, s);
+    s += '\n';
+    int len_s = s.length();
+
+    int count_space = 0;
+
+    for (int i = 0; i < len_s; i++)
+    {
+        if (s[i] == ' ')
+        {
+            count_space ++;
+        }
+    }
+
+    if (cin.fail() || ++count_space != array_size) {
+        cout << "Ошибка ввода" << endl;
+        return 1;
+    }
+
+    float A[array_size];
+
     string consonants = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZбвгджзклмнпрстфхцчшщБВГДЖЗКЛМНПРСТФХЦЧШЩ";
+    
+    int count_consonants = 0;
+    float count_letters = 0;
+    int index = 0;
 
-    for(int i = 0; i < len_s1; i++) {
-        if (in_array(consonants, s1[i])) {
-            count_consonants_1++;
+    for (int i = 0; i <= len_s; i++){
+        if (s[i] == ' ' || s[i] == '\n') 
+        {   
+            // cout << count_letters << endl;
+            // cout << count_consonants << endl;
+            if (count_consonants == 0)
+            {
+                A[index] = 0;
+            }
+            else
+            {
+                A[index] = (count_consonants / count_letters) * 100;
+            }
+            count_consonants = 0;
+            count_letters = 0;
+            index ++;
+        }
+        else 
+        {
+            if (in_array(consonants, s[i]))
+            {
+                count_consonants ++;
+                count_letters ++;
+            }
+            else
+            {
+                count_letters ++;
+            }
         }
     }
-
-    for(int i = 0; i < len_s2; i++) {
-        if (in_array(consonants, s2[i])) {
-            count_consonants_2++;
-        }
+    
+    cout << "Слова:" << endl;
+    for (int i = 0; i < array_size; i++){
+        int share = A[i];
+        cout << i + 1 <<": " << share << '%' << endl;
     }
-
-    share1 = (count_consonants_1 / len_s1);
-    share2 = (count_consonants_2 / len_s2);
-
-    if (share1 > share2) 
-        cout << endl << "Доля согласных в слове 1 больше" << endl;
-    else if (share1 < share2)
-        cout << endl << "Доля согласных в слове 2 больше" << endl;
-        else
-            cout << endl << "Доли согласных в словах равны" << endl;
-      
-        
-    cout << endl << "Доля согласных в слове 1: " << share1 * 100 << "%" << endl;
-    cout << endl << "Доля согласных в слове 2: " << share2 * 100 << "%" << endl;
 
     return 0;
 }
